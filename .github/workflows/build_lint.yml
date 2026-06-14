@@ -10,10 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      -- uses: actions/checkout@v4
 
-      - name: Build with ufbt
-        uses: flipperdevices/flipperzero-ufbt-action@v0.1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         id: build-app
         with:
           sdk-channel: release
