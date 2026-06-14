@@ -119,7 +119,8 @@ void ac_remote_displayed_temperature(
         return;
     }
 
-    int fahrenheit = (int)app_state->temperature * 9 / 5 + 32;
+    uint8_t t = (uint8_t)app_state->temperature;
+    int fahrenheit = (int)t * 9 / 5 + 32;
     snprintf(buffer, buffer_size, "%dF", fahrenheit);
 }
 
@@ -486,7 +487,8 @@ bool ac_remote_scene_midea_on_event(void* context, SceneManagerEvent event) {
 
         if(ac_remote->app_state.temperature < HVAC_MIDEA_TEMPERATURE_MAX) {
             ac_remote->app_state.temperature++;
-            int f_up = (int)ac_remote->app_state.temperature * 9 / 5 + 32;
+            uint8_t t_up = (uint8_t)ac_remote->app_state.temperature;
+            int f_up = (int)t_up * 9 / 5 + 32;
             snprintf(buffer, sizeof(buffer), "%dF", f_up);
             ac_remote_panel_label_set_string(ac_remote_panel, label_temperature, buffer);
         }
@@ -504,7 +506,8 @@ bool ac_remote_scene_midea_on_event(void* context, SceneManagerEvent event) {
 
         if(ac_remote->app_state.temperature > HVAC_MIDEA_TEMPERATURE_MIN) {
             ac_remote->app_state.temperature--;
-            int f_down = (int)ac_remote->app_state.temperature * 9 / 5 + 32;
+            uint8_t t_down = (uint8_t)ac_remote->app_state.temperature;
+            int f_down = (int)t_down * 9 / 5 + 32;
             snprintf(buffer, sizeof(buffer), "%dF", f_down);
             ac_remote_panel_label_set_string(ac_remote_panel, label_temperature, buffer);
         }
