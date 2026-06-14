@@ -39,7 +39,7 @@ const Icon* fan[4][2] = {
     [HvacMideaFanPower3] = {&I_fan_speed_3_19x20, &I_fan_speed_3_hover_19x20},
     [HvacMideaFanPowerAuto] = {&I_fan_speed_auto_19x20, &I_fan_speed_auto_hover_19x20}};
 
-char buffer[6] = {0};
+char buffer[8] = {0};
 
 bool ac_remote_load_settings(ACRemoteAppSettings* app_state) {
     Storage* storage = furi_record_open(RECORD_STORAGE);
@@ -119,8 +119,8 @@ void ac_remote_displayed_temperature(
         return;
     }
 
-    int32_t fahrenheit = (int32_t)app_state->temperature * 9 / 5 + 32;
-    snprintf(buffer, buffer_size, "%ldF", fahrenheit);
+    int fahrenheit = (int)app_state->temperature * 9 / 5 + 32;
+    snprintf(buffer, buffer_size, "%dF", fahrenheit);
 }
 
 void ac_remote_scene_midea_on_enter(void* context) {
@@ -486,8 +486,8 @@ bool ac_remote_scene_midea_on_event(void* context, SceneManagerEvent event) {
 
         if(ac_remote->app_state.temperature < HVAC_MIDEA_TEMPERATURE_MAX) {
             ac_remote->app_state.temperature++;
-            int32_t f_up = (int32_t)ac_remote->app_state.temperature * 9 / 5 + 32;
-            snprintf(buffer, sizeof(buffer), "%ldF", f_up);
+            int f_up = (int)ac_remote->app_state.temperature * 9 / 5 + 32;
+            snprintf(buffer, sizeof(buffer), "%dF", f_up);
             ac_remote_panel_label_set_string(ac_remote_panel, label_temperature, buffer);
         }
 
@@ -504,8 +504,8 @@ bool ac_remote_scene_midea_on_event(void* context, SceneManagerEvent event) {
 
         if(ac_remote->app_state.temperature > HVAC_MIDEA_TEMPERATURE_MIN) {
             ac_remote->app_state.temperature--;
-            int32_t f_down = (int32_t)ac_remote->app_state.temperature * 9 / 5 + 32;
-            snprintf(buffer, sizeof(buffer), "%ldF", f_down);
+            int f_down = (int)ac_remote->app_state.temperature * 9 / 5 + 32;
+            snprintf(buffer, sizeof(buffer), "%dF", f_down);
             ac_remote_panel_label_set_string(ac_remote_panel, label_temperature, buffer);
         }
 
